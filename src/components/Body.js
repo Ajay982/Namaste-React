@@ -1,5 +1,6 @@
 import RestroCards from "./RestroCards";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Body = () => {
@@ -37,7 +38,7 @@ const Body = () => {
             }}
           />
           <button
-            classNmae="search-btn"
+            className="search-btn"
             onClick={() => {
               const filterRestaurant = listOfRestaurants.filter((res) =>
                 res.info.name.toLowerCase().includes(searchText.toLowerCase())
@@ -55,6 +56,7 @@ const Body = () => {
               (restaurant) => restaurant.info.avgRating >= 4
             );
             setListOfRestaurant(listOfRestaurant);
+            console.log(listOfRestaurant);
           }}
         >
           Top Rated Restaurant
@@ -62,7 +64,12 @@ const Body = () => {
       </div>
       <div className="restro-container">
         {filterRestaurant.map((restaurant) => (
-          <RestroCards key={restaurant.info.id} resData={restaurant} />
+          <Link
+            key={restaurant.info.id}
+            to={"/restaurants/" + restaurant.info.id}
+          >
+            <RestroCards resData={restaurant} />
+          </Link>
         ))}
       </div>
     </div>
